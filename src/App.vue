@@ -58,61 +58,60 @@
 
 <script>
 
-  import {mapState, mapGetters, mapMutations} from 'vuex'
-  import Todo from './Todo'
+import {mapState, mapGetters, mapMutations} from 'vuex'
+import Todo from './Todo'
 
-  export default {
-    components: {},
-    data: () => ({
-      newTodoTitle: null
-    }),
-    computed: {
-      /**
-       * state of todos
-       */
-      ...mapState([
-        'todos'
-      ]),
-      /**
-       * computes archivedTodos and it's length
-       */
-      ...mapGetters([
-        'archivedTodos',
-        'archivedTodosLength'
-      ])
+export default {
+  components: {},
+  data: () => ({
+    newTodoTitle: null
+  }),
+  computed: {
+    /**
+      * state of todos
+      */
+    ...mapState([
+      'todos'
+    ]),
+    /**
+      * computes archivedTodos and it's length
+      */
+    ...mapGetters([
+      'archivedTodos',
+      'archivedTodosLength'
+    ])
+  },
+  methods: {
+    /**
+      * calls mutation that pushes Todo into todo-list
+      * clear input after
+      */
+    add () {
+      this.pushTodo(new Todo(this.newTodoTitle, this.todos.length))
+      this.newTodoTitle = null
     },
-    methods: {
-      /**
-       * calls mutation that pushes Todo into todo-list
-       * clear input after
-       */
-      add () {
-        this.pushTodo(new Todo(this.newTodoTitle, this.todos.length))
-        this.newTodoTitle = null
-      },
-      /**
-       * calls mutation that put Todo into archivedTodos and back
-       */
-      remove (id) {
-        this.toggleStatus(id)
-      },
-      /**
-       * calls mutation that cross off Todo and back
-       */
-      check (id) {
-        this.toggleComplete(id)
-      },
-      /**
-       * creates links for appropriate mutations
-       */
-      ...mapMutations([
-        'pushTodo',
-        'toggleStatus',
-        'toggleComplete'
-      ])
-    }
+    /**
+      * calls mutation that put Todo into archivedTodos and back
+      */
+    remove (id) {
+      this.toggleStatus(id)
+    },
+    /**
+      * calls mutation that cross off Todo and back
+      */
+    check (id) {
+      this.toggleComplete(id)
+    },
+    /**
+      * creates links for appropriate mutations
+      */
+    ...mapMutations([
+      'pushTodo',
+      'toggleStatus',
+      'toggleComplete'
+    ])
   }
-
+}
 </script>
 
 <style lang="stylus" scoped>
